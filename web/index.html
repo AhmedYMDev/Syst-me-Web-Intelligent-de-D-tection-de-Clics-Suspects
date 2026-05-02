@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Click Fraud Detection Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        button {
+            padding: 12px 18px;
+            margin: 8px;
+            cursor: pointer;
+        }
+
+        pre {
+            background: #f3f3f3;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .block {
+            color: red;
+            font-weight: bold;
+        }
+
+        .monitor {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .allow {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Détection de clics suspects</h1>
+
+    <p>Cette page simule l’envoi d’un clic vers l’API FastAPI.</p>
+
+    <button onclick="sendNormalClick()">Simuler clic normal</button>
+    <button onclick="sendSuspiciousClick()">Simuler clic suspect</button>
+
+    <h2>Résultat</h2>
+    <pre id="result">Aucun clic envoyé.</pre>
+
+    <script>
+        async function sendClick(clickData) {
+            const response = await fetch("http://127.0.0.1:8000/score-click", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(clickData)
+            });
+
+            const data = await response.json();
+
+            document.getElementById("result").innerHTML =
+                JSON.stringify(data, null, 2);
+        }
+
+        function sendNormalClick() {
+            sendClick({
+                ip: 17357,
+                app: 12,
+                device: 1,
+                os: 19,
+                channel: 245,
+                click_time: new Date().toISOString().slice(0, 19)
+            });
+        }
+
+        function sendSuspiciousClick() {
+            sendClick({
+                ip: 73516,
+                app: 3,
+                device: 1,
+                os: 13,
+                channel: 379,
+                click_time: new Date().toISOString().slice(0, 19)
+            });
+        }
+    </script>
+</body>
+
+</html>

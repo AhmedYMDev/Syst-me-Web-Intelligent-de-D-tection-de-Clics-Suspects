@@ -1,0 +1,63 @@
+{
+  "best_model_name": "XGBoost",
+  "final_uses_scaler": false,
+  "model_features": [
+    "ip",
+    "app",
+    "device",
+    "os",
+    "channel",
+    "hour",
+    "day",
+    "minute",
+    "dayofweek",
+    "ip_click_count",
+    "app_click_count",
+    "device_click_count",
+    "os_click_count",
+    "channel_click_count",
+    "ip_hour_click_count",
+    "ip_app_click_count",
+    "ip_device_click_count",
+    "ip_channel_click_count",
+    "ip_unique_apps",
+    "ip_unique_devices",
+    "ip_unique_os",
+    "ip_unique_channels",
+    "time_since_prev_click_sec",
+    "very_fast_repeat_click",
+    "anomaly_score",
+    "anomaly_flag"
+  ],
+  "anomaly_features": [
+    "ip_click_count",
+    "app_click_count",
+    "device_click_count",
+    "os_click_count",
+    "channel_click_count",
+    "ip_hour_click_count",
+    "ip_app_click_count",
+    "ip_device_click_count",
+    "ip_channel_click_count",
+    "ip_unique_apps",
+    "ip_unique_devices",
+    "ip_unique_os",
+    "ip_unique_channels",
+    "time_since_prev_click_sec",
+    "very_fast_repeat_click",
+    "hour",
+    "day",
+    "minute"
+  ],
+  "risk_formula": "0.70 * low_quality_score + 0.30 * anomaly_score_scaled",
+  "thresholds": {
+    "allow": "risk_score < 0.50",
+    "monitor": "0.50 <= risk_score < 0.80",
+    "block": "risk_score >= 0.80"
+  },
+  "business_assumptions": {
+    "cost_per_click": 0.05,
+    "revenue_per_conversion": 5.0
+  },
+  "xgb_error": null
+}

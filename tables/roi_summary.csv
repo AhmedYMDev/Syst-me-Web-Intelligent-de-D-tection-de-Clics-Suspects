@@ -1,0 +1,3 @@
+scenario,clicks,conversions,cost,revenue,roi
+before_filtering,100000,173,5000.0,865.0,-0.827
+after_filtering,86012,167,4300.6,835.0,-0.8058410454355206
